@@ -7,40 +7,38 @@
     <link href='../../prism.css' rel='stylesheet'>
     <script src='../../prism.js'></script>
 
-    <title>Conversions &amp; Const-ref</title>
+    <title>Guarded &amp; Unguarded Loops</title>
 </head>
 <body>
 <div id='page'>
 <div>
-   <h1>Conversions &amp; Const-ref</h1>
- <p class='firstLine'>Unlike value-type variables, references have
-    <strong>no implicit conversions</strong>. For instance, the following 
-      compiles and runs, because even though <tt>a</tt> is type
-      <tt>int</tt> and <tt>b</tt> is type <tt>double</tt>, the compiler
-      will <mark>implicitly</mark> create a temporary <tt>double</tt>
-      value to "stand in" for <tt>b</tt>.
+   <h1>Guarded &amp; Unguarded Loops</h1>
+ <p class='firstLine'>C++ has four loops:</p>
+ <pre class='language-cpp line-numbers'><code>while (condition) { statements; }
+do { statements; } while (condition);
+for (initializer; condition; update) { statements; }
+for (element : collection) { statements; }</code></pre>
+  <p>Each loop
+      is <strong>designed for a particular purpose</strong>, and each has a place
+      where it is most effective. One difference is <strong>where</strong> the
+      test takes place.  
   </p>
-<pre class='language-cpp'><code>int a = 42;
-double b = a;     // implicitly double b = double(a)</code></pre>
-  <p>The following code, however, <mark>will not</mark> compile, 
-    because <tt>x</tt> is an <tt>int</tt>, but <tt>rx</tt> is a 
-    <mark>reference to</mark> a <tt>double</tt>.
-    If <tt>rx</tt> were a <tt>double</tt>, (as in the previous example), 
-    instead of a <tt>double&amp;</tt> then <tt>x</tt> 
-    <strong>would be</strong> promoted and stored in <tt>rx</tt>.
+  <img src='../images/loop-tests.png' class='inlineCenter'
+    alt='Test at the top and test at the bottom loops.'>
+  <img src='../images/diver.png' class='right width-96'
+    alt='Decorative image of a diver'>
+  <p>The <tt>do-while</tt> loop, illustrated on the right loop,
+    tests its condition <strong>after</strong> it has performed the 
+    actions in the loop body <strong>at least once</strong>. 
+    This "test at the bottom" loop is also called an <mark>unguarded</mark> 
+    loop, because it "leaps before it looks".
   </p>
-<pre class='language-cpp'><code>int x = 3;
-double&amp; rx = x;     // ILLEGAL. x is not a double</code></pre>
-  <h2>Constant References</h2>
-  <p>While regular references must refer to an <strong><em>lvalue</em></strong> 
-    of exactly the same type, a <mark>constant reference</mark> may refer to a
-    <strong>literal</strong> or <strong>temporary</strong> value. Here are
-    some examples:
+  <p>The others three loop types check the test condtion <mark>before</mark>
+      performing the actions in the loop body. These are called
+      <mark>guarded</mark> loops, because when the test condition 
+      is <tt>false</tt>, then the actions inside
+      the loop body are <strong>never performed at all</strong>.
   </p>
-<pre class='language-cpp'><code>int&amp; lit = 3;               // ILLEGAL
-const int&amp; lit2 = 3;        // OK, const-ref
-string&amp; str = "OK";         // ILLEGAL
-const string&amp; str2 = "OK";  // OK</code></pre>
   
 </div>
 <div id='footer'>

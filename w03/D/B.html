@@ -6,41 +6,45 @@
     <link href='../../cs150.css' rel='stylesheet' media='all'>
     <link href='../../prism.css' rel='stylesheet'>
     <script src='../../prism.js'></script>
-
-    <title>Implementing the Plan</title>
+    <title>The Primed Loop Pattern</title>
 </head>
 <body>
 <div id='page'>
 <div>
-   <h1>Implementing the Plan</h1>
- <p class='firstLine'>How do you put your plan into action? 
-    What <strong>tactics</strong> do you
-    use to <strong>implement</strong> your strategy? Start by looking at the
-    loop <mark>topology</mark>.
+  <img src='../images/pump.png' class='right width-25'
+    alt='Drinking from an old-fashioned water pump.'>
+  <h1>The Primed Loop Pattern</h1>
+  <p> The <mark>primed-loop pattern</mark> is named after the old-west water
+    pump which required users to pour water down the well to establish suction,
+    before pumping began.
+  </p>
+  <p>Here's what that looks like in pseudocode:</p>
+<pre class='pcode'>Prompt user and read in a value
+While the value is not the sentinel
+    Process the data value
+    Prompt user and read next value</pre>
+<p> This is the <mark>classic way</mark> to process sentinel data. 
+    The code used to read each data value is <mark>duplicated,
+    before the loop and at the end of the loop</mark>.
 </p>
-<img src='../images/loop-topology.png' class='right'
-  alt='An illustration showing the loop topology.'>
-<p>Examine this <strong>guarded</strong> loop. You can see that there are
+<p> <a target='_blank' href='https://onlinegdb.com/5szZx0PUi'>Here's 
+    a <strong>primed-sentinel-loop</strong></a>
+    that sums a sequence, using <tt>0</tt> as the sentinel:
 </p>
-<ul>
-    <li>actions that occur <mark>before</mark> the loop is encountered
-    </li>
-    <li>a <strong>test</strong> that determines whether the <mark>loop is entered</mark>
-    </li>
-    <li>actions that occur <mark>inside</mark> the loop body
-    </li>
-    <li>actions that occur <mark>after</mark> the loop is complete
-    </li>
-</ul>
-<p>These four "faces" of a loop are called the <mark>precondition</mark>,
-the <mark>bound</mark>, the <mark>action</mark> or 
-<mark>operation</mark> and the <mark>postcondition</mark>. 
-</p>
-<p> Remember
-    these terms; we'll use them to determine exactly <strong>where</strong> to
-    start working on our loop.
-</p>
-  
+<pre class='language-cpp'><code>cout &lt;&lt; "Add integers. Enter 0 when done." &lt;&lt; endl;
+
+int total = 0;
+cout &lt;&lt; "&gt; ";
+int value = -1;
+cin &gt;&gt; value;               // Read before the loop
+while (value != 0)          // Check for the sentinel
+{
+    total += value;         // No sentinel? Process
+    cin &gt;&gt; value;           // Read next value
+}
+cout &lt;&lt; "Total: " &lt;&lt; total &lt;&lt; endl;</code></pre>
+
+
 </div>
 <div id='footer'>
 <p><img src='https://du11hjcvx0uqb.cloudfront.net/dist/images/cc/cc_by_nc-1d2b7301ee.png'

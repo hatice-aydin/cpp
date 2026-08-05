@@ -7,39 +7,71 @@
     <link href='../../prism.css' rel='stylesheet'>
     <script src='../../prism.js'></script>
 
-    <title>Guarded &amp; Unguarded Loops</title>
+    <title>Sequences &amp; Symmetric Bounds</title>
 </head>
 <body>
 <div id='page'>
 <div>
-   <h1>Guarded &amp; Unguarded Loops</h1>
- <p class='firstLine'>C++ has four loops:</p>
- <pre class='language-cpp line-numbers'><code>while (condition) { statements; }
-do { statements; } while (condition);
-for (initializer; condition; update) { statements; }
-for (element : collection) { statements; }</code></pre>
-  <p>Each loop
-      is <strong>designed for a particular purpose</strong>, and each has a place
-      where it is most effective. One difference is <strong>where</strong> the
-      test takes place.  
+  <h1>Sequences &amp; Symmetric Bounds</h1>
+ <p class='firstLine'>A second idiomatic variation
+    of the <tt class='i'>for</tt> loop is used to    
+    <mark>generate sequential data</mark>, such as counting from
+    <tt>start</tt> to <tt>finish</tt>:
   </p>
-  <img src='../images/loop-tests.png' class='inlineCenter'
-    alt='Test at the top and test at the bottom loops.'>
-  <img src='../images/diver.png' class='right width-96'
-    alt='Decorative image of a diver'>
-  <p>The <tt>do-while</tt> loop, illustrated on the right loop,
-    tests its condition <strong>after</strong> it has performed the 
-    actions in the loop body <strong>at least once</strong>. 
-    This "test at the bottom" loop is also called an <mark>unguarded</mark> 
-    loop, because it "leaps before it looks".
+<pre class='language-cpp'><code>for (int var = start; var &lt;= finish; update-var)...</code></pre>
+  <p> In this <tt class='i'>for</tt> loop the actions in the body 
+      are executed with the 
+      variable <tt>var</tt> set to each value between 
+      <tt>start</tt> and <tt>finish</tt>, <mark>inclusive</mark>. 
   </p>
-  <p>The others three loop types check the test condtion <mark>before</mark>
-      performing the actions in the loop body. These are called
-      <mark>guarded</mark> loops, because when the test condition 
-      is <tt>false</tt>, then the actions inside
-      the loop body are <strong>never performed at all</strong>.
+  <p> Because we include both ends, we
+      say that the bounds used in this loop are 
+      <mark>symmetric</mark>. Use this loop to count
+      from <tt>1</tt> to <tt>100</tt> like this:
   </p>
-  
+<pre class='language-cpp'><code>for (int i = 1; i &lt;= 100; ++i)</code></pre>
+  <p> Here's another example. In this pattern, the loop variable is used to
+      <mark>produce a sequence of data</mark>.
+  </p>
+<pre class='language-cpp'><code>int factorial(int n)
+{
+    int result = 1;
+    for (int i = 1; i &lt;= n; ++i) { result *= i; }
+    return result;
+}</code></pre>
+  <p> As you can see, this example uses the loop to implement the 
+      <mark>factorial function</mark>, the product of the integers 
+      between <tt>1</tt> and <tt>n</tt>. The <tt class='i'>for</tt> 
+      <mark>loop variable</mark> <tt>i</tt> goes from <tt>1</tt>
+      to <tt>n</tt> (inclusive). The body
+      of the loop updates <tt>result</tt>
+      by multiplying it by <tt>i</tt>.
+  </p>
+<h2>Counting Down</h2>
+  <p>As the <i>factorial</i> example shows, the update update expression
+     need only move the loop variable closer to the loop bounds. It must
+     <mark>advance</mark> the loop; it doesn't need to increment. Here's
+     an example:
+   <img src='../images/sequence.png' class='inlineCenter width-40'
+    alt='A sequence of data.'>
+  </p>
+  <p>Here we want to <b>start the loop at a large number</b>, and <b>decrease the
+    index by four</b> on each iteration. In other words, we want to 
+    <mark>count down</mark> rather than counting up. Here's
+    what this looks like in code:
+  </p>
+<pre class='language-cpp'><code>for (int i = 19; i &gt;= 0; i -= 4)
+    cout &lt;&lt; i &lt;&lt; " ";
+cout &lt;&lt; endl;</code></pre>
+<div class='highlight'>
+  <p>Don't use conditions like <tt>i != 0</tt>, unless you are certain
+    that the condition will be met. Because we are decrementing by
+    four, we will never set <tt>i</tt> to <tt>0</tt> and so we would
+    have an <mark>infinite</mark> or <mark>endless</mark> loop.
+  </p>
+</div>
+
+
 </div>
 <div id='footer'>
 <p><img src='https://du11hjcvx0uqb.cloudfront.net/dist/images/cc/cc_by_nc-1d2b7301ee.png'

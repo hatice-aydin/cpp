@@ -7,56 +7,51 @@
     <link href='../../prism.css' rel='stylesheet'>
     <script src='../../prism.js'></script>
 
-    <title>Hands On: Counting Vowels</title>
+    <title>Advancing the Loop</title>
 </head>
 <body>
 <div id='page'>
 <div>
-  <h1>Hands On: Counting Vowels</h1>
- <p class='firstLine'>Now it's your turn. In the section below
-  you'll find a function which should <mark>count the number of lower-case 
-  vowels</mark> in its <tt>string</tt> parameter. 
-  <!-- https://codecheck.io/files/2011181901er23fz7pevdredkf1ou63v28p -->
-  </p>
-<details>
-  <summary>The Count Vowels Program</summary>
-  <iframe
-    src="https://codecheck.io/files/2011181901er23fz7pevdredkf1ou63v28p"
-    height="475" width="100%">
-  </iframe>
-</details>
-  <p>Look at the hints
-  I've supplied here, and give it a try.
+   <h1>Advancing the Loop</h1>
+ <p class='firstLine'> Now it's time to <mark>advance the loop</mark>, 
+    which means adding statements to the <strong>loop body</strong> that    
+    <mark>move closer to the bounds</mark> on each repetition. Let's see
+    why. If you leave the body empty, what will happen?
   </p>
   <ol>
-    <li>I have already written a portion of the function skeleton
-        (or stub) for you. Since
-        the function returns an <tt>int</tt>, you just need to create 
-        the <tt>result</tt> variable,
-        initialize it to zero, and <tt>return</tt> it at the end of the function.
+    <li>If <tt>str</tt> begins with a period the loop will not be entered. The program
+      works and reports that there are no characters before the period.
     </li>
-    <li>
-        Next, use the <strong>canonical classic</strong> <tt class='i'>for</tt> 
-        loop (from the previous page) to process and retrieve every character in the string.
-        You should <strong>memorize</strong> this pattern so that it is always at
-        your fingertips when required.
+    <li>Otherwise, when the loop in entered, <strong>nothing</strong> in the
+      body changes the value of <tt>letter</tt>, so there is <mark>no way out</mark>
+      of the loop; it repeats over and over, <strong>endlessly</strong>.    
+      <mark>Endless (infinite) loops</mark> are common errors. Your IDE
+      will appear as if it were "hung".
     </li>
-    <li>
-        Finally, check the character to see if it is one of <tt>aeiou</tt>. If it is,
-        then count it.
+    <li>To avoid endless loops, be sure the statements inside the 
+        loop body <strong>change something</strong> tested in the loop bounds. 
+        Here, just store the next character, like this:
     </li>
   </ol>
-  <p>After you've given it a try, come back here and watch the solution video.</p>
-<details>
-  <summary>Watch the solution video</summary>
-  <iframe 
-    src="https://cccd.hosted.panopto.com/Panopto/Pages/Embed.aspx?id=37c75c36-9c7c-449b-a6d1-af5d00185d43&autoplay=false&offerviewer=false&showtitle=false&showbrand=false&captions=false&interactivity=all" 
-      height="475" width="100%" style="border: 1px solid #464646;" 
-      allowfullscreen allow="autoplay">
-  </iframe>
-</details>
+<pre class='pcode'>str &lt;- string supplied to the problem
+pos &lt;- 0
+letter &lt;- str.at(pos)
+while letter is not a period
+{
+    <em>// Step 3: Advance the loop</em>
+    <i>pos &lt;- pos + 1
+    letter &lt;- str.at(pos)</i>
+}</pre>
   
- 
+  <p><strong>At this point, the mechanical portion of your loop</strong>—the 
+      part that makes it "work", so to speak—is finished. You should be able
+      to compile your code (once you've "translated it" into C++, 
+      of course), and it should run correctly.
+  <img src='../images/advance.gif' class='inlineCenter'
+    alt='Minutemen advancing at Lexington in a reinactment.'>
+  </p>
+   
+    
 </div>
 <div id='footer'>
 <p><img src='https://du11hjcvx0uqb.cloudfront.net/dist/images/cc/cc_by_nc-1d2b7301ee.png'

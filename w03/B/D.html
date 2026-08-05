@@ -7,65 +7,49 @@
     <link href='../../prism.css' rel='stylesheet'>
     <script src='../../prism.js'></script>
 
-    <title>Indefinite Loop Categories</title>
+    <title>Some Bad Habits</title>
 </head>
 <body>
 <div id='page'>
 <div>
-   <h1>Indefinite Loop Categories</h1>
- <p class='firstLine'>Indefinite loops are those that wait until 
-    an event occurs at runtime to complete. You might wonder, "what
-    kind of event could that be?". Here are three kinds of indefinite 
-    bounds; each uses a different sort of bounds:
+  <h1>Some Bad Habits</h1>
+ <p class='firstLine'> You may see the idiomatic loop written like this:
   </p>
-  <p><mark>Data bound</mark> loops are those that keep <b>reading 
-    from input</b> until there is <b>no more data</b> to be read. Data loops are
-    used when processing files or network data. We'll work 
-    extensively with data loops when we get to <b>streams</b>.
+<pre class='language-cpp'><code>for (size_t i = 0; i &lt; str.size(); ++i)
+    // do something with str[i] or str.at(i)</code></pre>
+  <p> This is a <mark>bad habit</mark> which <strong>assumes</strong> that
+      calling size() is "free"—that is, it executes in constant time and there is
+      no overhead for calling the function. This is close to true for
+  <tt>string::size()</tt>, but <strong>it is not true</strong> for all functions.    
+  For instance, when working with C-style strings, using the
+  equivalent <tt>strlen()</tt> function is very expensive.
+  <mark>Don't</mark> <strong>train your fingers</strong> to do that.
   </p>
-  <p>Here is an indefinite data loop that reads all of 
-    the words from a file, represented by the input file object 
-    named <tt>in</tt>, and prints each one on its own line:
-<pre class='language-cpp'><code>string word;
-while (in &gt;&gt; word)
-{
-    cout &lt;&lt; word &lt;&lt; endl;
-}</code></pre>
-  <p><mark>Sentinel bound</mark> loops look for the presence of a 
-    special value, <mark>contained within its input</mark>, to determine when to
-    quit. If your problem is "read characters until you encounter a period", 
-    then the period is the sentinel. 
+  <p><mark>Even</mark> worse is combining this bad habit with 
+    <tt>int</tt> indexes, like this:
   </p>
-  <p>Sentinel loops are often 
-    used in searching, but have other uses as well. This sentinel 
-    loop finds the position of the first period entered.
+<pre class='language-cpp'><code>for (int i = 0; i &lt; str.size(); ++i)...</pre></code>
+  <p> The comparison <tt>i</tt> <tt>&lt;</tt> <tt>str.size()</tt> 
+    automatically converts the type of <tt>i</tt> to an <tt>unsigned</tt>
+    <tt>size_t</tt>. If <tt>i</tt> ever becomes negative, it is compared
+    <mark>as if it were a very large positive number</mark>. Your compiler
+    may warn you if you mix signed and unsigned numbers like this, but it's
+    easier to remember: <mark>Just don't do it! </mark>
   </p>
-<pre class='language-cpp'><code>int position = 0; char c;
-cin &gt;&gt; c;
-while (c != '.') // Loop sentinel
-{
-    position++;
-    cin &gt;&gt; c;
-}</code></pre>
-  <p><mark>Limit bound</mark> loops end when another repetition 
-    of the loop won't get you any closer to your goal. They are 
-    often used in scientific calculations and other numeric 
-    algorithms, when stating a precise termination condition 
-    is not possible. 
+  <p>Since <tt>size()</tt> never changes in the loop,
+    <mark>store the length in a variable</mark>, and    
+    <strong>use the variable</strong> in your test. 
+    Here is an example:
   </p>
-  <p> Often this involves monitoring the difference between 
-      two variables, and stopping the loop when the difference 
-      passes a predetermined threshold. Here is a limit-loop 
-      example which counts the number of odd digits in an integer <tt>n</tt>:
+<pre class='language-cpp'><code>for (size_t i = 0, len = str.size(); i &lt; len; ++i)...</code></pre>
+<div class='highlight'>
+  <p>Should you use <tt>i++</tt> or <tt>++i</tt> in your loop update expression?
+    With <tt>int</tt> or <tt>size_t</tt> indexes, it makes no difference. The
+    effect is the same either way. However, I prefer the prefix version (<tt>++i</tt>)
+    because I want to "train my fingers" for more the more advanced 
+    <b>iterator</b> loops you'll work with in CS 250. With iterators,
+    often the <tt>i++</tt> version is much slower, or even non-existent.
   </p>
-<pre class='language-cpp'><code>int count = 0;
-while (n != 0) // Loop limit
-{
-    if (n % 10 % 2 == 1) { count++; }
-    n = n / 10;
-}</code></pre>
-
-
 </div>
 <div id='footer'>
 <p><img src='https://du11hjcvx0uqb.cloudfront.net/dist/images/cc/cc_by_nc-1d2b7301ee.png'

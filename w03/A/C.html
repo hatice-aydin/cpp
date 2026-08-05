@@ -7,69 +7,66 @@
     <link href='../../prism.css' rel='stylesheet'>
     <script src='../../prism.js'></script>
 
-    <title>Reference Parameters</title>
+    <title>Classifying Loops</title>
 </head>
 <body>
 <div id='page'>
 <div>
-   <h1>Reference Parameters</h1>
- <p class='firstLine'>When you pass a variable to a function, 
-      the function receives <mark>a copy</mark> of the calling value 
-      or <strong>argument</strong>. Assigning to a parameter variable 
-      changes the parameter but has no effect on the argument.
-      <a
-        target='_blank'
-        href='https://pythontutor.com/render.html#code=%23include%20%3Ciostream%3E%0Ausing%20namespace%20std%3B%0A%0Avoid%20toZero%28int%20n%29%0A%7B%0A%20%20n%20%3D%200%3B%0A%7D%0A%0Aint%20main%28%29%20%7B%0A%20%20int%20x%20%3D%2042%3B%0A%20%20toZero%28x%29%3B%0A%20%20cout%20%3C%3C%20x%20%3C%3C%20endl%3B%0A%7D&cumulative=false&curInstr=5&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=cpp_g%2B%2B9.3.0&rawInputLstJSON=%5B%5D&textReferences=false'
-      >Consider this program</a>, along with a function which 
-      attempts set a variable to zero:
+   <h1>Classifying Loops</h1>
+ <p class='firstLine'>Classifying loops according to <b>where</b> their condition 
+  is tested is not really very useful when it comes to 
+  deciding which loop to use. It is much more useful to 
+  classify loops by the <mark>kind of bounds</mark> that they employ.
   </p>
-<pre class='language-cpp'><code>void toZero(int n) { n = 0; }
+  <p><mark>A loop's bounds are the conditions under which 
+  it will repeat its actions.</mark> In a simple, loop, the 
+  this might be expressed as "the counter has a value 
+  less than ten". In more complex loops, the bounds may 
+  be a combination of conditions. There are <b>three major 
+  kinds of loops</b> that can be built using the basic loop 
+  syntax available in C++.
+  </p>
+  <ul>
+    <img src='../images/counter.gif' class='right width-128'
+      alt='A decorative image of a counter.'>
+    <li>A <mark>definite</mark> or (<b>counter-controlled</b>) loop repeats 
+    its actions a fixed number of times&mdash;a "gimme fifty pushups" kind 
+    of loop. Ideally you can read the code and tell how many times the 
+    loop will run. <p>Sometimes you won't know the <b>exact</b> number 
+    of repetitions until runtime; it may be based upon the number 
+    of characters in a <tt>string</tt>, for instance, or some other 
+    number which is not computed until then.</p>
+    </li>
+    <img src='../images/indefinite.gif' class='right width-96'
+      alt='A decoritive image of an indefinite loop.'>
+    <li>With an <mark>indefinite loop</mark> you can <b>never</b>
+      tell how many times the loop will repeat by examining the code. 
+      An indefinite loop is a loop that tests for the occurrence of 
+      a particular event, not a count of the number of repetitions.
+      <p>"<b>Read characters until you encounter a period</b>" 
+      is an indefinite loop. The bounds may be reached after 
+      reading three characters, or, after reading three-thousand. 
+      It's also possible that the period might be the first character 
+      or might not occur at all.
+    </li>
+    <li><mark>Range-based</mark> loops were added to the language 
+        in C++11. Range loops iterate over a collection of elements, 
+        such as a <tt>string</tt>, array or <tt>vector</tt>. The informal
+        name for a range loop is a <b>foreach</b> loop. The range-based 
+        <tt>for</tt> loop looks like this:<p>
+<pre class='language-cpp'><code>for (declaration : collection)
+    statement</code></pre>
+        <p>where <i>collection</i> is an object of a type that 
+        represents a sequence (such as a <tt>string</tt>), 
+        and <b>declaration</b> defines the variable that is 
+        used to access the underlying elements in the sequence. 
+        On each cycle of the loop, the variable in <b>declaration</b>
+        is initialized from the value of the next element in <b>collection</b>.
+    </li>
+  </ol>
+  <p>Now, let's look at different kinds of <b>indefinite</b> loops.</p>
+  </ul>
 
-int main()
-{
-    int x = 42;
-    toZero(x);
-    cout &lt;&lt; x &lt;&lt; endl;
-};</code></pre>
-  <img src='../images/pass-by-value.png' class='right'
-    alt='Visualization of pass-by-value.'>
-  <p>If you call the procedure the parameter variable named <tt>n</tt> 
-      is initialized <mark>with a copy</mark> of the value is stored in 
-      <tt>x</tt> (<tt>42</tt> in this case). Making a
-      copy of arguments when calling a function, is known as
-      <mark>pass by value</mark> or <mark>call by value</mark>, and the
-      parameter <tt>n</tt> is known as a <strong>value parameter</strong>.
-  </p>
-  <p> The assignment statement <tt>n</tt> <tt>=</tt> <tt>0;</tt> inside 
-      the function sets <strong>the parameter variable</strong> <tt>n</tt> 
-      to <tt>0</tt> but leaves the variable <tt>x</tt> unchanged in
-      the <tt>main</tt> function.
-  </p>
-<h2>Pass by Reference</h2>
-  <p>If you want to 
-      <a
-        target='_blank'
-        href='https://pythontutor.com/render.html#code=%23include%20%3Ciostream%3E%0Ausing%20namespace%20std%3B%0A%0Avoid%20toZero%28int%26%20n%29%0A%7B%0A%20%20n%20%3D%200%3B%0A%7D%0A%0Aint%20main%28%29%20%7B%0A%20%20int%20x%20%3D%2042%3B%0A%20%20toZero%28x%29%3B%0A%20%20cout%20%3C%3C%20x%20%3C%3C%20endl%3B%0A%7D&cumulative=false&curInstr=5&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=cpp_g%2B%2B9.3.0&rawInputLstJSON=%5B%5D&textReferences=false'
-      >change the value of the calling argument</a>, 
-      you can change the parameter from a value parameter into a    
-      <mark>reference parameter</mark> by adding an ampersand between the
-      type and the name in the function header, like this:
-  </p>
-<pre class='language-cpp'><code>void toZero(int&amp; n) { n = 0; }</code></pre>
-  <img src='../images/pass-by-reference.png' class='right'
-    alt='Visualization of pass-by-reference.'>
-  <p>Unlike value parameters, <strong>reference parameters <mark>are not 
-      copied</mark>.</strong> Instead, the function treats <tt>n</tt> as
-      <mark>a reference to the original variable</mark>,
-      which means that the memory used for that variable is shared between the
-      function and its caller.
-  </p>
-  <p> If you trace through the program by clicking the link, you'll
-      see that this time, the variable <tt>x</tt> in <tt>main</tt>
-      is set to <tt>0</tt>, just as you intended.
-  </p>
-   
- 
 </div>
 <div id='footer'>
 <p><img src='https://du11hjcvx0uqb.cloudfront.net/dist/images/cc/cc_by_nc-1d2b7301ee.png'

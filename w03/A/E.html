@@ -7,56 +7,70 @@
     <link href='../../prism.css' rel='stylesheet'>
     <script src='../../prism.js'></script>
 
-    <title>String Reference Parameters</title>
+    <title>Range-based Loops</title>
 </head>
 <body>
 <div id='page'>
 <div>
-   <h1>String Reference Parameters</h1>
- <p class='firstLine'>Since reference parameters <mark>don't</mark> make a copy
-    of the argument, they are much more efficient when 
-    passing a class-type argument such as <tt>string</tt> or
-    <tt>vector</tt>. What if you were to change the heading of 
-    <tt>count_vowels</tt> like this. Would that work?
+   <h1>Range-based Loops</h1>
+  <img src='../images/range-rover.png' class='right width-25'
+    alt='A decorative Range Rover icon.'>
+ <p class='firstLine'>As mentioned earlier, range-based loops were 
+    added in C++11. A range loop will visit each element in a collection,
+    setting the range variable to each value in the collection, in turn.
+    These loops are very similar to the simplified <tt>for</tt> loop added
+    in Java 5, and the <tt>for</tt> <tt>in</tt> loops in Python.
   </p>
-<pre class='language-cpp'><code>int count_vowels(string&amp; str)</code></pre>
-  <p>Well, yes and no!</p>
-  <ul>
-    <li>Because the parameter <tt>str</tt> is now a <b>reference</b>,
-        there is no copy made, so it is <mark>much more efficient</mark>.
-    </li>
-    <li>However, because it is a reference, you can now only call
-      the <tt>count_vowels</tt> function with an <i><b>lvalue</b></i>. You
-      could no longer write:<code class='language-cpp'>count_vowels("hello");</code>.
-      Your function is much less <mark>usable</mark>.
-    </li>
-    <li>Finally, since <tt>str</tt> is a reference, there is nothing
-      to <mark>prevent</mark> the <code>count_vowels</code> function 
-      from <mark>inadvertently modifying</mark> the parameter, and,
-      thus by extension, the argument. The function is not as 
-      <mark>safe</mark> as it could be.
-    </li>
-  </ul>
-  <p>The solution is simple, however. <mark>Whenever</mark> you pass a 
-    <tt>string</tt> as an argument to a function, use 
-    <tt>const</tt> <tt>string&amp;</tt> for the parameter if the function 
-    <mark>will not</mark> modify the calling argument, and <tt>string&amp;</tt>
-    if it will.
+  <p> Let's look at the three variations of range-based loops which are 
+    offered in C++. We'll start with <mark>value iteration</mark>, which
+    is the closest to the version used in Java.
   </p>
-    <p>Here is the improved header for <tt>count_vowels</tt>, which is 
-      correct, efficient and safe.
+  <p>Here's a short example, which prints each character in a string 
+    on a line by itself:
   </p>
-<pre class='language-cpp'><code>int count_vowels(const string&amp; str)</code></pre>
-  <div class='highlight'>
-    <p>If the <tt>string</tt> <mark>should</mark> be modified use a regular reference.
-      If the string <mark>should not</mark> be modified, use a <tt>const</tt> 
-      reference as your parameter type.</p>
-  </div>
-  <p>You can add these C++11 <mark>type alias declarations</mark> to your programs
-    to make this easier if you like:
+<pre class='language-cpp'><code>string snake{"Ouroboros"};
+for (char c : snake)
+{
+    cout &lt;&lt; c &lt;&lt; endl;
+}</code></pre>
+  <p>On each loop cycle, the variable <tt>c</tt> is initialized 
+    with a <mark>copy</mark> of the next character in the <tt>string</tt>
+    <tt>snake</tt>. When all of the characters have been processed, 
+    the loop stops. Thus, you can read this loop as saying <i>"for each 
+    character in snake, do something".</i>
   </p>
-<pre class='language-cpp'><code>using stringIn = const string&amp;;   // input string not modified
-using stringRef = string&amp;         // output string, modified</code></pre>
+  <p>With value iteration, changes to the variable <tt>c</tt> have no
+    effect on the <tt>string</tt> <tt>snake</tt>. If you <b>want</b>
+    to change the <tt>string</tt> itself, then use <mark>reference iteration</mark>.
+    Here's a second example which does that:
+  </p>
+<pre class='language-cpp'><code>string str{"one two three"};
+for (char&amp; c : str)
+{
+    if (c == ' ') { c == '_'; }
+}
+cout &lt;&lt; str &lt;&lt; endl;</code></pre>
+  <p>Finally, if the items you are iterating over are very large,
+    and you want to make sure you don't change them, then you'd use
+    <mark>const-ref iteration</mark> like this (made up) example.
+  </p>
+<pre class='language-cpp'><code>Album photos(get_phone_photos());
+for (const Image&amp; img : photos)
+{
+    if (is_cute_cat(img))
+    {
+        display(img);
+    }
+}</code></pre>
+  <p>Because each picture in your photos library might be very large,
+    you <mark>wouldn't</mark> want to copy them with value iteration.
+    Similarly, since you wouldn't want the <b>CuteCats</b> app to have
+    the ability to modify (or perhaps erase) your cute cat photos,
+    the loop should access each variable as a 
+    <code class='language-cpp'>const Image&amp;</code>.
+  </p>
+  
+  
 </div>
 <div id='footer'>
 <p><img src='https://du11hjcvx0uqb.cloudfront.net/dist/images/cc/cc_by_nc-1d2b7301ee.png'

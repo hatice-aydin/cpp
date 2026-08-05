@@ -7,62 +7,51 @@
     <link href='../../prism.css' rel='stylesheet'>
     <script src='../../prism.js'></script>
 
-    <title>Hands On: Counting Substrings</title>
+    <title>The Loop Goal</title>
 </head>
 <body>
 <div id='page'>
 <div>
-  <h1>Hands On: Counting Substrings</h1>
-  <!-- https://codecheck.io/files/2107071824am5o6ix9z0rbjxreo3xmd84sj -->
- <p class='firstLine'><mark>Processing substrings</mark>
-      requires a little more work than processing individual characters. 
-      Below you'll find a function,
-      <tt>countSubs()</tt>, which counts the number of times that one
-      string, <tt>s2</tt>, appears inside another, <tt>s1</tt>. 
+   <h1>The Loop Goal</h1>
+   <img src='../images/goal.png' class='right width-25'
+      alt='Illustrating a loop goal.'>
+ <p class='firstLine'>The whole purpose of a loop is to get some 
+    <strong>real work done</strong>, to accomplish the 
+    <mark>goal</mark>. Up until now, we've ignored the
+    goal portion entirely, because we want to make sure the loop 
+    <strong>works</strong>, before we put it <mark>to work</mark>. 
   </p>
-<details>
-  <summary>Counting Substrings</summary>
-  <iframe
-    src="https://codecheck.io/files/2107071824am5o6ix9z0rbjxreo3xmd84sj"
-    height="475" width="100%">
-  </iframe>
-</details>
-
-
-  <p> Complete the <strong>stub</strong> by adding a variable to hold the    
-      <strong>count</strong>, and then <strong>return</strong> it. Your code
-      should now compile and run. You might even get a few correct.
+ <p> The code to carry out the goal of the loop is written in a
+    <strong>different</strong> order than that for the loop mechanics:
   </p>
-<pre class='language-cpp'><code>int countSubs(const string&amp; s1, const string&amp; s2)
+  <ul>
+      <li>start in the <strong>precondition</strong> area</li>
+      <li> move to the <strong>operations</strong> in the loop body</li>
+      <li>then deal with the <strong>postcondition</strong></li>
+  </ul>
+  <h2>The Goal Precondition</h2>
+  <p> The purpose of every loop is to <mark>produce information</mark>. Many
+      loops <strong>count</strong> things and <strong>add</strong> things, for
+      which you create <strong>counters </strong>and<strong> accumulators</strong>. 
+      For this step, <mark>create and initialize the variables</mark> 
+      necessary to <strong>carry out the goal</strong> of the loop.
+  </p>
+  <p> Ask yourself: "<mark>What information does this loop produce?</mark>"
+      Then, <strong>create and initialize variables</strong> to store that information.
+      In our case, we now need a <tt>counter</tt> to store that information.
+  </p>
+<pre class='pcode'><em>// Step 4: The goal preconditions</em>
+str &lt;- string supplied to the problem
+<i>counter &lt;- 0</i>
+pos &lt;- 0
+letter &lt;- str.at(pos)
+while letter is not a period
 {
-    int count{0};
-    . . .
-    return count;
-}</code></pre>
-  <p> Next, write a canonical <tt class='i'>for</tt> look that visits ever
-      character. Inside the loop, extract a <mark>substring</mark>
-      from <tt>s1</tt>, using this code:
-  </p>
-<pre class='language-cpp'><code>string subs = s1.substr(i, s2.size());</code></pre>
-  <p>The variable <tt>i</tt> is the position you want to start extracting from, 
-      and <tt>s2.size()</tt> is the number of characters to extract. 
-      Compare the substring to <tt>s2</tt>, and, if it matches, count it.
-  </p>
-<pre class='language-cpp'><code>if (subs == s2) { ++count; }</code></pre>  
-  <p> Go ahead and 
-      complete the exercise and then
-      check your work with the solution
-      below.
-  </p>
-<details>
-  <summary>Watch the solution video</summary>
-  <iframe 
-    src="https://cccd.hosted.panopto.com/Panopto/Pages/Embed.aspx?id=f3f85b3b-e01d-4e06-9284-af5d01442bf1&autoplay=false&offerviewer=false&showtitle=false&showbrand=false&captions=false&interactivity=all" 
-    height="470" width="800" 
-    style="border: 1px solid #464646;" allowfullscreen allow="autoplay">
-  </iframe>
-  </details>
- 
+    pos &lt;- pos + 1
+    letter &lt;-> str.at(pos)
+}</pre>
+
+    
 </div>
 <div id='footer'>
 <p><img src='https://du11hjcvx0uqb.cloudfront.net/dist/images/cc/cc_by_nc-1d2b7301ee.png'

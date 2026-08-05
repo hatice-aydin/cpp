@@ -7,58 +7,74 @@
     <link href='../../prism.css' rel='stylesheet'>
     <script src='../../prism.js'></script>
 
-    <title>Introducing Loops</title>
+    <title>Definite Loops with for</title>
 </head>
 <body>
 <div id='page'>
 <div>
-  <img src='../images/lather-rinse-repeat.png' class='right'
-    alt='Shampooing your hair.'>
-   <h1>Introducing Loops</h1>
- <p class='firstLine'>An old CS joke. Why did the Computer Science 
-    student starve to death in the shower?
-    He was following the instructions on the bottle of shampoo.
-    To really "get" the joke, you have to learn about <mark>iteration</mark>,
-    a Computer Science term that means 
-    <mark>repeating</mark> a set of actions.
-    Iteration is also called <strong>repetition</strong> or    
-    <strong>looping</strong>. The statements that are used in iteration are
-    called <strong>loops</strong>. 
-    Let's start by comparing iteration to the <tt>if</tt> statement.
+  <img src='../images/for-loop.png' class='right round shadow width-25'
+    alt='The for loop illustrated.'>
+   <h1>Definite Loops with <i>for</i></h1>
+ <p class='firstLine'>C++ has a loop designed for repeating an 
+    operation a fixed number of times: it is called the <tt class='i'>for</tt> loop. You already 
+    met the <mark>range-based</mark> <tt class='i'>for</tt> loop 
+    in the last section. In this
+    section we'll cover the traditional <mark>classic counter-controlled </mark>
+    version.
   </p>
-  <p> Both iteration and selection are <mark>flow-of-control</mark>
-      statements; they control <strong>which</strong> code is executed inside
-      your program.
+  <p>The pattern used when you simply want to <mark>repeat an action 
+      <tt>n</tt> times</mark> is this:
+  </p>
+<pre class='language-cpp'><code>times &lt;- times to repeat
+i &lt;- 0
+While i is less than times
+  Do action
+  i &lt;- i + 1</code></pre>
+  <p>Here is this pattern translated into C++ using the <tt class='i'>for</tt> loop.
+  </p>
+<pre class='language-cpp'><code>int times = 5;    // repeat 5 times;
+for (int i = 0; i &lt; times; ++i)
+{
+    cout &lt;&lt; "Hello" &lt;&lt; endl;
+}</code></pre>
+  <p>
+      The traditional <tt class='i'>for</tt> loop has 
+      <strong>three sections</strong> inside its
+      parentheses:
   </p>
   <ul>
-    <li>Like the <tt>if</tt> statement, iteration is based upon evaluating 
-        a <i>Boolean</i>—<tt>true</tt>/<tt>false</tt>—condition, and 
-        then performing a set of actions if the test is <tt>true</tt>, 
-        and skipping them if it is <tt>false</tt>.
-    </li>
-    <li> Both loops and <tt>if</tt> statements have a <strong>condition 
-          part</strong>, (the test), and a <strong>body part</strong>, 
-          (the actions that are
-          taken).
-    </li>
+      <li>The <mark>initialization expression</mark> is evaluated once before
+          the loop is entered. It creates and initializes the  
+          <strong>loop control variable</strong>, often named <tt>i</tt>. 
+          You may create other variables of the same type in this section. 
+          These variables have <strong>block scope</strong>; they are 
+          not available after the loop body. The initialization section
+          ends with a semicolon.
+      </li>
+      <li>The <mark>test condition</mark> is first evaluated after the
+          initialization. If <tt>true</tt>, the body is entered; 
+          if <tt>false</tt>, it is skipped.
+          The condition also ends in a semicolon.
+      </li>
+      <li>The <mark>update expression</mark> is evaluated       
+          <strong>after</strong> the loop body is completed. 
+          It does not end in a semicolon. The update expression must 
+          change one of the variables in the condition, which is
+          evaluated again, immediately following the update.
+      </li>
   </ul>
-  <img src='../images/loops.png' class='inlineCenter width-90'
-    alt='Illustrating the difference between loops and if statements.'>
-  <p><strong>Selection</strong>
-      works like the illustration on the left. Driving down a highway, you come
-      to a rest stop pull off. When you leave, you rejoin the highway further
-      down the road. Once you rejoin the highway,    <mark>you have no opportunity 
-      to go back</mark>, and revisit the rest
-      stop again. Those who bypass the turnoff, skip the rest stop altogether.
+  <p> Often, the <strong>index</strong> or <strong>loop control variable</strong>
+      is not used inside the body of the loop; it simply controls the number of
+      repetitions. Single letter names such as <tt>i</tt> and <tt>j</tt> are 
+      conventional. If you want others to understand your code, you'll conform
+      to this convention. 
   </p>
-  <p> A loop looks similar, <mark>but it not the same</mark>. The 
-      illustration on the right shows that there is still a test, but,
-      after you've had your break, the exit road "<mark>loops back</mark>" 
-      (hence the name), and you rejoin the highway where you initially left it.
-      If you like, you can choose to enter the rest stop once again, even though
-      the highway is one-way. In this sense, a loop works a little like a
-      cloverleaf interchange.
-  </p>
+  <p> The loop shown here goes
+      from <tt>0</tt> to <mark>less-than</mark> <tt>times</tt>, 
+      so we say that this loop uses <mark>asymmetric bounds</mark>.
+      This means the <b>lower</b> bounds is <mark>included</mark> while
+      the <b>upper</b> bound is <mark>excluded</mark>.
+      </p>
   
 </div>
 <div id='footer'>

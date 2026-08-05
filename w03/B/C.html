@@ -7,65 +7,60 @@
     <link href='../../prism.css' rel='stylesheet'>
     <script src='../../prism.js'></script>
 
-    <title>Classifying Loops</title>
+    <title>Processing Strings</title>
 </head>
 <body>
 <div id='page'>
 <div>
-   <h1>Classifying Loops</h1>
- <p class='firstLine'>Classifying loops according to <b>where</b> their condition 
-  is tested is not really very useful when it comes to 
-  deciding which loop to use. It is much more useful to 
-  classify loops by the <mark>kind of bounds</mark> that they employ.
+  <h1>Processing Strings</h1>
+ <p class='firstLine'>One use of the <tt class='i'>for</tt> loop 
+    is to <strong>process strings</strong>.
+    The <tt class='i'>for</tt> loop, and the <mark>asymmetric bounds pattern</mark>
+    are ideal, because the subscripts used by strings and arrays all begin at <tt>0</tt>,
+    and the last element is always found at <tt>size()</tt> <tt>–</tt> <tt>1</tt>.
   </p>
-  <p><mark>A loop's bounds are the conditions under which 
-  it will repeat its actions.</mark> In a simple, loop, the 
-  this might be expressed as "the counter has a value 
-  less than ten". In more complex loops, the bounds may 
-  be a combination of conditions. There are <b>three major 
-  kinds of loops</b> that can be built using the basic loop 
-  syntax available in C++.
+  <p> The <strong>canonical classic</strong> <em>for</em> loop to process every
+      character in a string, should look something like this:
   </p>
-  <ul>
-    <img src='../images/counter.gif' class='right width-128'
-      alt='A decorative image of a counter.'>
-    <li>A <mark>definite</mark> or (<b>counter-controlled</b>) loop repeats 
-    its actions a fixed number of times&mdash;a "gimme fifty pushups" kind 
-    of loop. Ideally you can read the code and tell how many times the 
-    loop will run. <p>Sometimes you won't know the <b>exact</b> number 
-    of repetitions until runtime; it may be based upon the number 
-    of characters in a <tt>string</tt>, for instance, or some other 
-    number which is not computed until then.</p>
-    </li>
-    <img src='../images/indefinite.gif' class='right width-96'
-      alt='A decoritive image of an indefinite loop.'>
-    <li>With an <mark>indefinite loop</mark> you can <b>never</b>
-      tell how many times the loop will repeat by examining the code. 
-      An indefinite loop is a loop that tests for the occurrence of 
-      a particular event, not a count of the number of repetitions.
-      <p>"<b>Read characters until you encounter a period</b>" 
-      is an indefinite loop. The bounds may be reached after 
-      reading three characters, or, after reading three-thousand. 
-      It's also possible that the period might be the first character 
-      or might not occur at all.
-    </li>
-    <li><mark>Range-based</mark> loops were added to the language 
-        in C++11. Range loops iterate over a collection of elements, 
-        such as a <tt>string</tt>, array or <tt>vector</tt>. The informal
-        name for a range loop is a <b>foreach</b> loop. The range-based 
-        <tt>for</tt> loop looks like this:<p>
-<pre class='language-cpp'><code>for (declaration : collection)
-    statement</code></pre>
-        <p>where <i>collection</i> is an object of a type that 
-        represents a sequence (such as a <tt>string</tt>), 
-        and <b>declaration</b> defines the variable that is 
-        used to access the underlying elements in the sequence. 
-        On each cycle of the loop, the variable in <b>declaration</b>
-        is initialized from the value of the next element in <b>collection</b>.
-    </li>
-  </ol>
-  <p>Now, let's look at different kinds of <b>indefinite</b> loops.</p>
-  </ul>
+<pre class='language-cpp'><code>for (size_t i = 0, len = str.size(); i &lt; len; ++i)
+{
+    char c = str.at(i);   // now, process c in some way
+}</code></pre>
+  <p>Note that the <tt>string::size()</tt> member function returns an   
+    <mark>unsigned</mark> type. If you are not careful, that can lead to
+      unexpected results like this:
+  </p>
+<div class='bug'><p>
+<code class='language-cpp'>for (size_t len = str.size() - 1; i &gt;= 0; --i) ...</code>
+</p>
+</div>
+  <p> This loop intended to <mark>count down</mark> from the last character
+      to the first at index <tt>0</tt>. However, if <tt>str</tt> is an <mark>empty</mark>
+      string, then <tt>i</tt> starts at the largest possible unsigned
+      number, instead of <tt>-1</tt>, since unsigned numbers "wrap around". 
+      Even worse, because <tt>i</tt> is an <mark>unsigned</mark> type, 
+      the condition <tt>i</tt> <tt>&gt;=</tt> <tt>0</tt> can <mark>never</mark>
+      be false, so you can <mark>never exit the loop</mark>.
+  </p>
+  <p> Here is a loop that is written correctly:
+  </p>
+<pre class='language-cpp'><code>for (size_t i = str.size(); i &gt; 0; --i)
+{
+    char c = str.at(i - 1);
+}</code></pre>
+  <p> Alternatively, <mark>you can store <tt>str.size()</tt> in an 
+      <tt>int</tt> variable</mark>, as long as you:
+  </p>
+    <ul>
+      <li>cast the returned value from <tt>str.size()</tt> to an <tt>int</tt>
+          like this:
+          <code class='language-cpp'>for (int i = static_cast&lt;int&gt;(str.size()) - 1; i &gt;= 0; --i) ...</code>
+      </li>
+      <li>make sure that the <tt>string</tt> you are processing is 
+        no longer than the positive range of an <tt>int</tt>. If you 
+        do this, your loop will <b>not work</b> if you have a large string.
+      </li>
+  </p>
 
 </div>
 <div id='footer'>

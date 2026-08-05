@@ -7,70 +7,56 @@
     <link href='../../prism.css' rel='stylesheet'>
     <script src='../../prism.js'></script>
 
-    <title>Range-based Loops</title>
+    <title>Hands On: Counting Vowels</title>
 </head>
 <body>
 <div id='page'>
 <div>
-   <h1>Range-based Loops</h1>
-  <img src='../images/range-rover.png' class='right width-25'
-    alt='A decorative Range Rover icon.'>
- <p class='firstLine'>As mentioned earlier, range-based loops were 
-    added in C++11. A range loop will visit each element in a collection,
-    setting the range variable to each value in the collection, in turn.
-    These loops are very similar to the simplified <tt>for</tt> loop added
-    in Java 5, and the <tt>for</tt> <tt>in</tt> loops in Python.
+  <h1>Hands On: Counting Vowels</h1>
+ <p class='firstLine'>Now it's your turn. In the section below
+  you'll find a function which should <mark>count the number of lower-case 
+  vowels</mark> in its <tt>string</tt> parameter. 
+  <!-- https://codecheck.io/files/2011181901er23fz7pevdredkf1ou63v28p -->
   </p>
-  <p> Let's look at the three variations of range-based loops which are 
-    offered in C++. We'll start with <mark>value iteration</mark>, which
-    is the closest to the version used in Java.
+<details>
+  <summary>The Count Vowels Program</summary>
+  <iframe
+    src="https://codecheck.io/files/2011181901er23fz7pevdredkf1ou63v28p"
+    height="475" width="100%">
+  </iframe>
+</details>
+  <p>Look at the hints
+  I've supplied here, and give it a try.
   </p>
-  <p>Here's a short example, which prints each character in a string 
-    on a line by itself:
-  </p>
-<pre class='language-cpp'><code>string snake{"Ouroboros"};
-for (char c : snake)
-{
-    cout &lt;&lt; c &lt;&lt; endl;
-}</code></pre>
-  <p>On each loop cycle, the variable <tt>c</tt> is initialized 
-    with a <mark>copy</mark> of the next character in the <tt>string</tt>
-    <tt>snake</tt>. When all of the characters have been processed, 
-    the loop stops. Thus, you can read this loop as saying <i>"for each 
-    character in snake, do something".</i>
-  </p>
-  <p>With value iteration, changes to the variable <tt>c</tt> have no
-    effect on the <tt>string</tt> <tt>snake</tt>. If you <b>want</b>
-    to change the <tt>string</tt> itself, then use <mark>reference iteration</mark>.
-    Here's a second example which does that:
-  </p>
-<pre class='language-cpp'><code>string str{"one two three"};
-for (char&amp; c : str)
-{
-    if (c == ' ') { c == '_'; }
-}
-cout &lt;&lt; str &lt;&lt; endl;</code></pre>
-  <p>Finally, if the items you are iterating over are very large,
-    and you want to make sure you don't change them, then you'd use
-    <mark>const-ref iteration</mark> like this (made up) example.
-  </p>
-<pre class='language-cpp'><code>Album photos(get_phone_photos());
-for (const Image&amp; img : photos)
-{
-    if (is_cute_cat(img))
-    {
-        display(img);
-    }
-}</code></pre>
-  <p>Because each picture in your photos library might be very large,
-    you <mark>wouldn't</mark> want to copy them with value iteration.
-    Similarly, since you wouldn't want the <b>CuteCats</b> app to have
-    the ability to modify (or perhaps erase) your cute cat photos,
-    the loop should access each variable as a 
-    <code class='language-cpp'>const Image&amp;</code>.
-  </p>
+  <ol>
+    <li>I have already written a portion of the function skeleton
+        (or stub) for you. Since
+        the function returns an <tt>int</tt>, you just need to create 
+        the <tt>result</tt> variable,
+        initialize it to zero, and <tt>return</tt> it at the end of the function.
+    </li>
+    <li>
+        Next, use the <strong>canonical classic</strong> <tt class='i'>for</tt> 
+        loop (from the previous page) to process and retrieve every character in the string.
+        You should <strong>memorize</strong> this pattern so that it is always at
+        your fingertips when required.
+    </li>
+    <li>
+        Finally, check the character to see if it is one of <tt>aeiou</tt>. If it is,
+        then count it.
+    </li>
+  </ol>
+  <p>After you've given it a try, come back here and watch the solution video.</p>
+<details>
+  <summary>Watch the solution video</summary>
+  <iframe 
+    src="https://cccd.hosted.panopto.com/Panopto/Pages/Embed.aspx?id=37c75c36-9c7c-449b-a6d1-af5d00185d43&autoplay=false&offerviewer=false&showtitle=false&showbrand=false&captions=false&interactivity=all" 
+      height="475" width="100%" style="border: 1px solid #464646;" 
+      allowfullscreen allow="autoplay">
+  </iframe>
+</details>
   
-  
+ 
 </div>
 <div id='footer'>
 <p><img src='https://du11hjcvx0uqb.cloudfront.net/dist/images/cc/cc_by_nc-1d2b7301ee.png'

@@ -6,54 +6,62 @@
     <link href='../../cs150.css' rel='stylesheet' media='all'>
     <link href='../../prism.css' rel='stylesheet'>
     <script src='../../prism.js'></script>
-
-    <title>The Bounds Precondition</title>
+    <title>The Flag-controlled Pattern</title>
 </head>
 <body>
 <div id='page'>
 <div>
-   <h1>The Bounds Precondition</h1>
- <p class='firstLine'>The bounds
-    make sure that you <strong>exit</strong> the loop at the correct time. 
-    Next you have to make it possible to <mark>enter</mark> the loop. 
-    Step 1 asks <strong>"How do I get out?"</strong>, while Step 2 
-    asks: "<mark>How do I get into the loop?</mark>"
-    Look at the bounds condition:
+  <img src='../images/flag.png' class='right width-128'
+    alt='Decorative image of checkered flag.'>
+   <h1>The Flag-controlled Pattern</h1>
+   <p class='firstLine'>A third way to implement the 
+      <strong>read-until-sentinel</strong> pattern
+      is to use a <mark>flag-controlled</mark> loop, 
+      where you introduce an additional <em>Boolean</em> 
+      variable just before the loop starts
+      and set it to <tt>false</tt>. Inside the loop you read a data value
+      and check the sentinel, just as in the loop-and-a-half.
   </p>
-<pre class='pcode'>while letter is not a period</pre>
-  <ol>
-    <li><strong>What</strong> is letter?</li>
-    <li><strong>Where</strong> did it come from?</li>
-    <li><strong>How</strong> did it get a value that I can check?</li>
-  </ol>
-  <p>If you were to write the bounds in C++, using your editor,
-    your code would not compile because it refers to variables 
-    which don't yet exist. <mark>Bounds precondition</mark> statements
-    <strong>create the variables</strong> used in the test, and    
-    <strong>initialize</strong> each to some meaningful state.
+  <p> Instead of a <tt>break</tt> statement, set your flag 
+      variable to <tt>true</tt> when the
+      sentinel is read. Otherwise, you process that data value as normal:
   </p>
-<pre class='pcode'><em>// Step 2: The bounds precondition</em>
-<i>str &lt;- string supplied to the problem
-pos &lt;- 0
-letter &lt;- str.at(pos)</i>
-while letter is not a period
+<pre class='pcode'>Set finished to false    // Boolean control flag
+while not finished
+    read the value
+    if value is the sentinel then
+        set finished to true
+    else
+        process the variable</pre>
+<p>As we've done with the other two methods, here is the same program
+  implemented as a <mark>flag-controlled</mark> sentinel loop:
+</p>
+<pre class='language-cpp'><code>bool finished{false};       // control flag
+while (! finished)
 {
-    // Inside the loop
-}</pre>
-  <p> In our example, <tt>str</tt> is the string we've been 
-      given. We need two variables, <tt>pos</tt> which is the 
-      position (or index) of the character we want to examine,
-      and <tt>letter</tt>, initialized with the first character 
-      in <tt>str</tt>.
+    cout &lt;&lt; "&gt; ";               // Prompt and read item
+    cin >> value;
+    if (value == 0) 
+    { 
+        finished = true; 
+    }
+    else
+    {
+        total += value;
+    }
+}</code></pre>
+  <p> Which of these thre versions <mark>should</mark> you use? 
+      Eric Roberts, a professor at Stanford for many years,
+      <a
+        target='_blank'
+        href='https://www-cs.stanford.edu/people/eroberts/papers/SIGCSE-1995/LoopExits.pdf'>
+      suggests that empirical studies demonstrate</a> that students are more
+      <mark>likely to write correct programs if they use 
+        the loop-and-a-half version
+      </mark> than if they are forced to use some other strategy.
+      If you're interested, follow the link to read Roberts' paper.
   </p>
-  <p> If <tt>letter</tt> does not contain the first character in 
-      <tt>str</tt>, then you have no assurance that you will
-      <mark>ever enter the loop—</mark>
-      the value of <tt>letter</tt> will be unknown. 
-      (In C++ it will be some random value.)
-  </p>
- 
-    
+
 </div>
 <div id='footer'>
 <p><img src='https://du11hjcvx0uqb.cloudfront.net/dist/images/cc/cc_by_nc-1d2b7301ee.png'
