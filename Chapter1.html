@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Chapter 1: Introduction to C++</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+      color: #222222;
+      background-color: #ffffff;
+    }
+
+    header {
+      background-color: #1f5a75;
+      color: #ffffff;
+      padding: 16px 20px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #ffffff;
+    }
+
+    header p {
+      margin: 6px 0 0;
+    }
+
+    .reader-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 750px;
+    }
+
+    nav {
+      background-color: #f2f7fb;
+      border-right: 1px solid #c7cdd1;
+      padding: 18px;
+      overflow-y: auto;
+    }
+
+    nav h2 {
+      margin-top: 0;
+      color: #1f5a75;
+      font-size: 1.25rem;
+    }
+
+    nav h3 {
+      color: #8a4b00;
+      font-size: 1rem;
+      margin: 22px 0 8px;
+    }
+
+    nav ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    nav li {
+      margin-bottom: 6px;
+    }
+
+    nav a {
+      display: block;
+      padding: 8px 10px;
+      color: #0645ad;
+      text-decoration: underline;
+      border-radius: 4px;
+    }
+
+    nav a:hover,
+    nav a:focus {
+      color: #ffffff;
+      background-color: #1f5a75;
+      outline: 2px solid #1f5a75;
+      outline-offset: 2px;
+    }
+
+    main {
+      min-width: 0;
+      background-color: #ffffff;
+    }
+
+    iframe {
+      display: block;
+      width: 100%;
+      min-height: 750px;
+      border: 0;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      background-color: #ffffff;
+      color: #000000;
+      padding: 10px;
+      z-index: 1000;
+    }
+
+    .skip-link:focus {
+      left: 10px;
+      top: 10px;
+    }
+
+    @media (max-width: 700px) {
+      .reader-layout {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        border-right: 0;
+        border-bottom: 1px solid #c7cdd1;
+      }
+
+      iframe {
+        min-height: 650px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a class="skip-link" href="#chapter-content">
+    Skip to the chapter content
+  </a>
+
+  <header>
+    <h1>Chapter 1: Introduction to C++</h1>
+    <p>Select a topic from Parts A–C.</p>
+  </header>
+
+  <div class="reader-layout">
+
+    <nav aria-label="Chapter 1 table of contents">
+      <h2>Chapter 1 Contents</h2>
+
+      <h3>Part A: An Overview of C++</h3>
+      <ul>
+        <li>
+          <a href="w01/A/A.html" target="reader">
+            An Overview of C++
+          </a>
+        </li>
+        <li>
+          <a href="w01/A/B.html" target="reader">
+            The C++ Programming Language
+          </a>
+        </li>
+        <li>
+          <a href="w01/A/C.html" target="reader">
+            Hello World
+          </a>
+        </li>
+        <li>
+          <a href="w01/A/D.html" target="reader">
+            Source Code
+          </a>
+        </li>
+        <li>
+          <a href="w01/A/E.html" target="reader">
+            Program Mechanics
+          </a>
+        </li>
+        <li>
+          <a href="w01/A/F.html" target="reader">
+            The Build Process
+          </a>
+        </li>
+      </ul>
+
+      <h3>Part B: The C++ Back Story</h3>
+      <ul>
+        <li>
+          <a href="w01/B/A.html" target="reader">
+            Early Computing
+          </a>
+        </li>
+        <li>
+          <a href="w01/B/B.html" target="reader">
+            Machine Language
+          </a>
+        </li>
+        <li>
+          <a href="w01/B/C.html" target="reader">
+            High-Level Languages
+          </a>
+        </li>
+        <li>
+          <a href="w01/B/D.html" target="reader">
+            The C Language
+          </a>
+        </li>
+        <li>
+          <a href="w01/B/E.html" target="reader">
+            Object-Oriented Programming
+          </a>
+        </li>
+        <li>
+          <a href="w01/B/F.html" target="reader">
+            The C++ Language
+          </a>
+        </li>
+      </ul>
+
+      <h3>Part C: Syntax Basics</h3>
+      <ul>
+        <li>
+          <a href="w01/C/A.html" target="reader">
+            C++ Syntax
+          </a>
+        </li>
+        <li>
+          <a href="w01/C/B.html" target="reader">
+            The f2c Program
+          </a>
+        </li>
+        <li>
+          <a href="w01/C/C.html" target="reader">
+            The Standard C++ Library
+          </a>
+        </li>
+        <li>
+          <a href="w01/C/D.html" target="reader">
+            The main Function
+          </a>
+        </li>
+        <li>
+          <a href="w01/C/E.html" target="reader">
+            The convert Function
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <main id="chapter-content">
+      <iframe
+        name="reader"
+        src="w01/A/A.html"
+        title="Chapter 1 reading content">
+      </iframe>
+    </main>
+
+  </div>
+
+</body>
+</html>
